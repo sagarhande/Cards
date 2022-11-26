@@ -3,7 +3,6 @@ package main
 import "testing"
 
 func TestNewDeck(t *testing.T) {
-	` Test the newDeck function from deck.go`
 
 	d := newDeck()
 
@@ -16,5 +15,18 @@ func TestNewDeck(t *testing.T) {
 	}
 	if d[len(d)-1] != "Ten of Clubs" {
 		t.Errorf("Expected last card to be `Ten of Clubs`, but got `%v`", d[len(d)-1])
+	}
+}
+
+func TestDeal(t *testing.T) {
+	d := newDeck()
+	n := len(d)
+	hand, remaining := deal(d, 4)
+
+	if len(hand) != 4 {
+		t.Errorf("Deal should return slice of length 4, but got %v", len(hand))
+	}
+	if len(remaining) != n-4 {
+		t.Errorf("Deal should return slice of length %v, but got %v", n-4, len(remaining))
 	}
 }
