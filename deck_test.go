@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestNewDeck(t *testing.T) {
 
@@ -28,5 +31,30 @@ func TestDeal(t *testing.T) {
 	}
 	if len(remaining) != n-4 {
 		t.Errorf("Deal should return slice of length %v, but got %v", n-4, len(remaining))
+	}
+}
+
+func TestSaveToFileAndNewDeckFromFile(t *testing.T) {
+
+	/*
+		1. delete all existing files
+		2. create new deck and save to file
+		3. readfrom file and create new deck
+		4. delete newly created file
+		5. check length of slice
+		6. raise error if not same
+	*/
+
+	os.Remove("_decktesting")
+
+	d := newDeck()
+	d.saveToFile("_decktesting")
+
+	loadedDeck := newDeckFromFile("_decktesting")
+
+	os.Remove("_decktesting")
+
+	if len(loadedDeck) != len(d) {
+		t.Errorf("Length of loaded deck from file should be same as original deck, but got %v", len(loadedDeck))
 	}
 }
