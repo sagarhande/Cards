@@ -1,10 +1,17 @@
 package main
 
-func main() {
-	cards := deck{"one", "two", "three", newCard()}
-	cards.print()
-}
+import (
+	"fmt"
+)
 
-func newCard() string {
-	return "Five of Diamonds"
+func main() {
+
+	// cards := newDeck()
+	// cards.saveToFile("cards.txt")
+
+	newDeckFromFile := newDeckFromFile("cards.txt")
+	fmt.Println("Original:  : ", newDeckFromFile)
+	newDeckFromFile.shuffle()
+	fmt.Println("Shuffle : ", newDeckFromFile)
+
 }
